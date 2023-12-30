@@ -16,9 +16,9 @@ void ChessBoard::InitBoard()
 
 			for (int i = 0; i < length * width; i++) //Just to run through multiplications
 			{
-				if (rows == i * 5 && rows < length * width - 1) //Create a section every five tiles
+				if (rows == i * 5) //Create a section every five tiles
 					chess_board[columns][rows] = "#";
-				if (columns == i * 5 && columns < length * width - 1) //Cross every five tiles
+				if (columns == i * 5 && columns) //Cross every five tiles
 					chess_board[columns][rows] = "#";
 			}
 		}
@@ -37,7 +37,7 @@ void ChessBoard::DrawBoard()
 	}
 }
 
-void ChessBoard::UpdateBoard(int p_x, int p_y, std::string c_piece)
+void ChessBoard::UpdateBoard(int p_x, int p_y, std::string c_piece) //Update this function to as to be able to put pieces into specific squares.
 {
 	chess_board[p_x][p_y] = c_piece;
 }
