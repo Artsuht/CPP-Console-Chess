@@ -36,3 +36,8 @@ void ChessBoard::DrawBoard()
 		 std::cout << std::endl;
 	}
 }
+
+void ChessBoard::UpdateBoard(int p_x, int p_y, std::string c_piece)
+{
+	chess_board[p_x][p_y] = c_piece;
+}

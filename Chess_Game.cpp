@@ -1,8 +1,12 @@
 #include "Chess_Game.h"
+#include "ChessPieces.h"
 
 void ChessGame::RunGame()
 {
     ChessBoard board;
+	ChessPieces Rooks(board, ROOKS_QUANTITY, "@", ROOK, BLACK);
+
+
 	board.DrawBoard();
 }
 

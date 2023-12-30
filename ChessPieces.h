@@ -1,8 +1,7 @@
 #ifndef CHESSPIECES_H
 #define CHESSPIECES_H
 
-#include "string"
-#include <vector>
+#include "ChessBoard.h"
 
 enum Piece_Type
 {
@@ -33,13 +32,13 @@ enum Piece_Quantity
 class ChessPieces
 {
 public:
-	  ChessPieces(int quantity, std::string p_symbol, int type, int colour);
+	  ChessPieces(ChessBoard& chess_board, int quantity, std::string p_symbol, int type, int colour);
 	  ChessPieces(std::string p_symbol, int type, int colour) : piece_symbol(p_symbol), piece_type(type), piece_colour(colour){} //For duplicates
 
-	  void GeneratePieces(int quantity, std::string symbol, int type, int colour);
-	  void SpawnPieces(ChessPieces& piece);
+	  void GeneratePieces(ChessBoard& chess_board, int quantity, std::string symbol, int type, int colour);
+	  void SpawnPieces(ChessPieces& piece, ChessBoard& chess_board);
 	  
-	  void MovePiece();
+	  void MovePiece(ChessPieces& piece, int p_x, int p_y);
 	  bool MoveLegal(int p_x, int p_y);
 
   private:
