@@ -6,10 +6,12 @@
 class ChessEngine
 {
 public:
+
 	void SeekMoves();
 private:
 	std::vector<bool>MoveIsOptimal;
-	static const int search_limit = 10; //
+	static const int search_limit{ 10 }; //
+	int pieces_lost{};
 };
 
 #endif //CHESSENGINE_H

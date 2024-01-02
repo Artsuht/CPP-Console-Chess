@@ -9,10 +9,11 @@ class ChessGame
 {
  public:
 
-  static void RunGame();
+  void RunGame();
   void DisplayMenu();
 
  private:
+
   enum menu_options
   {
 	START_GAME,

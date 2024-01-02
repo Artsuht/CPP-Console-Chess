@@ -2,6 +2,6 @@
 
 int main()
 {
-    ChessGame c_game;
+   ChessGame c_game;
    c_game.DisplayMenu();
 }
