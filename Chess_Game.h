@@ -10,6 +10,7 @@ class ChessGame
  public:
 
   void RunGame();
+  void InitPieces(ChessBoard& board);
   void DisplayMenu();
 
  private:
