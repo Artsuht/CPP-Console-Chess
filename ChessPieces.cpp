@@ -22,8 +22,10 @@ std::vector<ChessPieces>& ChessPieces::GeneratePieces(int quantity, char symbol,
 	return piece_duplicates;
 }
 
-void ChessPieces::SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& chess_board) //Define some constants here or something
+void ChessPieces::SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& chess_board)
 { 
+	//Define some constants and make it readable
+
 	for (int i = 0; i < pieces.size(); i++)
 	{
 		if (pieces[i].piece_type == PAWN && pieces[i].piece_colour == BLACK) 
@@ -37,13 +39,14 @@ void ChessPieces::SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& ches
 
 		else if (pieces[i].piece_type == ROOK && pieces[i].piece_colour == WHITE)
 			chess_board.UpdateBoard((i * SQUARES) - CENTER, W_FIRST_ROW, pieces[i].piece_symbol);
+		//Logic on all above is different for some reason, change it
 
 		else if (pieces[i].piece_type == KNIGHT && pieces[i].piece_colour == BLACK)
 		{
 			if(i == 0)
 			chess_board.UpdateBoard(((i + 1) * SQUARES) + CENTER , B_FIRST_ROW, pieces[i].piece_symbol);
 			if(i == 1)
-			  chess_board.UpdateBoard((i * SQUARES * 6) + CENTER, B_FIRST_ROW, pieces[i].piece_symbol);//6 is the distance to the next knight position
+			  chess_board.UpdateBoard((i * SQUARES * 6) + CENTER, B_FIRST_ROW, pieces[i].piece_symbol);
 		}
 
 		else if (pieces[i].piece_type == KNIGHT && pieces[i].piece_colour == WHITE)
@@ -59,7 +62,7 @@ void ChessPieces::SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& ches
 			if (i == 0)
 				chess_board.UpdateBoard(((i + 1) * SQUARES) + (CENTER * 3), B_FIRST_ROW, pieces[i].piece_symbol);
 			if (i == 1)
-				chess_board.UpdateBoard(((i * SQUARES) * 4) + (CENTER * 3), B_FIRST_ROW, pieces[i].piece_symbol); //4 is the distance to the next bishop position
+				chess_board.UpdateBoard(((i * SQUARES) * 4) + (CENTER * 3), B_FIRST_ROW, pieces[i].piece_symbol); 
 		}
 
 		else if (pieces[i].piece_type == BISHOP && pieces[i].piece_colour == WHITE)
@@ -67,7 +70,7 @@ void ChessPieces::SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& ches
 			if (i == 0)
 				chess_board.UpdateBoard(((i + 1) * SQUARES) + (CENTER * 3), W_FIRST_ROW, pieces[i].piece_symbol);
 			if (i == 1)
-				chess_board.UpdateBoard(((i * SQUARES) * 4) + (CENTER * 3), W_FIRST_ROW, pieces[i].piece_symbol); //4 is the distance to the next bishop position
+				chess_board.UpdateBoard(((i * SQUARES) * 4) + (CENTER * 3), W_FIRST_ROW, pieces[i].piece_symbol);
 		}
 
 		else if (pieces[i].piece_type == KING && pieces[i].piece_colour == BLACK)
