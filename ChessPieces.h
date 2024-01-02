@@ -44,7 +44,7 @@ namespace Piece_Info
    static constexpr int SQUARES = 8;
 
    //Multiplier to Get Target Square
-   static constexpr int BISHOP_DIST = 2;
+   static constexpr int BISHOP_DIST =2; 
    static constexpr int BISHOP2_DIST = 5;
 
    static constexpr int QUEEN_DIST = 3;

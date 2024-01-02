@@ -19,7 +19,7 @@ void ChessBoard::InitBoard()
 			chess_board[length * width - 1][rows] = '#'; //Bottom Border
 			chess_board[columns][length * width - 1] = '#'; //Right Border
 
-			for (int multiplier = 1; multiplier < length; multiplier++) //Just to run through multiples of 8
+			for (int multiplier = 0; multiplier < length; multiplier++) //Just to run through multiples of 8
 			{
 				if (rows == multiplier * width - 1) //Cross every eight tiles
 					chess_board[columns][rows] = '#';
@@ -28,25 +28,6 @@ void ChessBoard::InitBoard()
 			}
 		}
 	}
-}
-
-bool ChessBoard::SquareIsEmpty()
-{
-	char f = 'S';
-
-	int seeker_x{0};
-	int seeker_y{1};
-	bool move_next = false;
-
-	int width = 8;
-	int length = 8;
-
-
-
-	DrawBoard();
-
-	std::cout << "X: " << seeker_x << " Y: " << seeker_y << std::endl;
-	return false;
 }
 
 

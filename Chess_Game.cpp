@@ -1,5 +1,6 @@
 #include "Chess_Game.h"
 #include "ChessPieces.h"
+
 #include "Windows.h"
 
 
@@ -31,14 +32,19 @@ void ChessGame::RunGame()
 	std::vector<ChessPieces>& BRook_pieces = B_Rooks.GetPieces();
 	std::vector<ChessPieces>& BKnight_pieces = B_Knights.GetPieces();
 	std::vector<ChessPieces>& BBishops_pieces = B_Bishops.GetPieces();
-	std::vector<ChessPieces>& BKing_pieces = B_King.GetPieces();
-	std::vector<ChessPieces>& BQueen_pieces = B_Bishops.GetPieces();
+	std::vector<ChessPieces>& BKing_piece = B_King.GetPieces();
+	std::vector<ChessPieces>& BQueen_piece = B_Bishops.GetPieces();
 
+	std::vector<ChessPieces>& WPawn_pieces = W_Pawns.GetPieces();
 	std::vector<ChessPieces>& WRook_pieces = W_Rooks.GetPieces();
+	std::vector<ChessPieces>& WKnight_pieces = W_Knights.GetPieces();
+	std::vector<ChessPieces>& WBishop_pieces = W_Bishops.GetPieces();
+	std::vector<ChessPieces>& WKing_piece = W_King.GetPieces();
+	std::vector<ChessPieces>& WQueen_pieces = W_Queen.GetPieces();
 
 	board.DrawBoard();
 
-	std::cout << BPawn_pieces[7].GetX() << std::endl;
+	std::cout << BPawn_pieces[5].GetX() << std::endl;
 	std::cout << BPawn_pieces[2].GetY() << std::endl;
 
 
@@ -49,7 +55,7 @@ void ChessGame::RunGame()
 
 }
 
-void ChessGame::InitPieces(ChessBoard& board)
+void ChessGame::DisplayGuide()
 {
 }
 
@@ -57,7 +63,7 @@ void ChessGame::DisplayMenu()
 {
 	int input{};
 	
-	std::cout << "Chess - \n[0] Start Game \n [1] Exit Game\n" << std::endl;
+	std::cout << "Chess - \n[0] Start Game \n[1] Exit Game\n[2]Guide\n" << std::endl;
 
 	std::cin >> input;
 	switch (input)
@@ -65,6 +71,9 @@ void ChessGame::DisplayMenu()
 	case START_GAME:
 		system("cls");
 		RunGame();
+		break;
+	case GAME_GUIDE:
+		DisplayGuide();
 		break;
 
 	case EXIT_GAME:

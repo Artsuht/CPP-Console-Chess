@@ -10,15 +10,16 @@ class ChessGame
  public:
 
   void RunGame();
-  void InitPieces(ChessBoard& board);
+  void DisplayGuide();
   void DisplayMenu();
 
  private:
 
+
   enum menu_options
   {
 	START_GAME,
-	END_GAME,
+	GAME_GUIDE,
 	EXIT_GAME,
   };
 };
