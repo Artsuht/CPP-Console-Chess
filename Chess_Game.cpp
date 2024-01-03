@@ -42,10 +42,12 @@ void ChessGame::RunGame()
 	std::vector<ChessPieces>& WKing_piece = W_King.GetPieces();
 	std::vector<ChessPieces>& WQueen_pieces = W_Queen.GetPieces();
 
+	BPawn_pieces[3].MovePiece(board, 12, 2);
+
+	std::cout << BPawn_pieces[3].GetY();
+
 	board.DrawBoard();
 
-	std::cout << BPawn_pieces[5].GetX() << std::endl;
-	std::cout << BPawn_pieces[2].GetY() << std::endl;
 
 
 	while (true)

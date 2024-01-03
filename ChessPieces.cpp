@@ -176,9 +176,25 @@ void ChessPieces::SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& ches
 	}
 }
 
-void ChessPieces::MovePiece(ChessPieces& piece, ChessBoard& chess_board, int p_x, int p_y)
+void ChessPieces::MovePiece(ChessBoard& chess_board, int dist_x, int dist_y)
 {
-	piece.piece_y *= 2;
-	chess_board.UpdateBoard(piece.piece_x, piece.piece_y, piece.piece_symbol);
+	switch (piece_colour)
+	{
+	case BLACK:
+		chess_board.UpdateBoard(piece_x, piece_y, chess_board.Empty());
+		piece_y += SQUARES * dist_y;
+		chess_board.UpdateBoard(piece_x, piece_y, piece_symbol);
+		break;
+
+	case WHITE:
+		chess_board.UpdateBoard(piece_x, piece_y, chess_board.Empty());
+		piece_x -= SQUARES * dist_x;
+		piece_y -= SQUARES * dist_x;
+		chess_board.UpdateBoard(piece_x, piece_y, piece_symbol);
+		break;
+
+	default:
+		break;
+	}
 }
 

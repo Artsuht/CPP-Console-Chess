@@ -30,6 +30,11 @@ namespace Piece_Info
 	QUEEN_QUANTITY = 1,
 	KING_QUANTITY = 1
  };
+   //Movement
+    static constexpr int MOVE_MIN = 1; //King, Pawns
+	static constexpr int MOVE_MAX = 8; //Rooks, Bishops, Queen
+	static constexpr int HORIZ_MAX = 2;
+
 
    //Black
    static constexpr int B_FIRST_ROW = 4;
@@ -65,7 +70,7 @@ public:
 	  std::vector<ChessPieces>& GetPieces() { return piece_duplicates; }
 	  void SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& chess_board);
 	  
-	  void MovePiece(ChessPieces& piece, ChessBoard& chess_board, int f_x, int f_y);
+	  void MovePiece(ChessBoard& chess_board, int dist_x, int dist_y);
 	  bool MoveLegal(int p_x, int p_y);
 	  bool SquareIsEmpty(ChessPieces& piece, ChessBoard& chess_board, int p_x, int p_y);
 
@@ -77,6 +82,8 @@ public:
 
 	  int piece_type{};
 	  int piece_colour{};
+
+	  bool first_move = true;
 	  
 	  char piece_symbol; //Symbol for piece
 	  std::vector<ChessPieces>piece_duplicates;
