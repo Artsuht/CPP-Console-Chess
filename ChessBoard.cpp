@@ -30,6 +30,35 @@ void ChessBoard::InitBoard()
 	}
 }
 
+void ChessBoard::SquareIsOccupied(int row)
+{	
+	for (int i = 0; i < length + 1; i++)
+	{
+		if (BoardArea(i * width - 4, row) != Empty() && i * 8 - 4 > 0 && i * 8 - 4 < 61)
+		{
+			UpdateBoard(i * 8 - 4, row, 'O');
+			occupied_square.push_back(true);
+		}
+		else
+		{
+			occupied_square.push_back(false);
+		}
+	}
+}
+
+bool ChessBoard::CheckSquare(int square)
+{
+	int row = 4;
+	for (int i = 0; i < length; i++)
+	{
+		
+		SquareIsOccupied(row);
+		row += 8;
+	}
+
+	return occupied_square[square];
+}
+
 
 void ChessBoard::DrawBoard()
 {

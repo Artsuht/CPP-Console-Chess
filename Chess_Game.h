@@ -12,9 +12,19 @@ class ChessGame
   void RunGame();
   void DisplayGuide();
   void DisplayMenu();
-
+  void NotationParser(char input);//Maybe
  private:
 
+  
+   enum piece_options
+   {
+	   PAWN = 1,
+	   ROOK,
+	   KNIGHT,
+	   BISHOP,
+	   KING,
+	   QUEEN
+   };
 
   enum menu_options
   {

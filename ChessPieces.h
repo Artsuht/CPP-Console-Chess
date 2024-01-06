@@ -5,7 +5,7 @@
 
 namespace Piece_Info
 {
-  enum Piece_Type
+  enum piece_type
  {
 	PAWN,
 	BISHOP,
@@ -15,13 +15,13 @@ namespace Piece_Info
 	KING
  };
 
-  enum Piece_Colour
+  enum piece_colour
  {
 	BLACK,
 	WHITE
  };
 
- enum Piece_Quantity
+ enum piece_quantity
  {
 	PAWN_QUANTITY = 8,
 	BISHOPS_QUANTITY = 2,
@@ -41,12 +41,12 @@ namespace Piece_Info
    static constexpr int B_SECOND_ROW = 12;
 
    //White
-   static constexpr int W_FIRST_ROW = 59;
-   static constexpr int W_SECOND_ROW = 53;
+   static constexpr int W_FIRST_ROW = 60;
+   static constexpr int W_SECOND_ROW = 52;
 
    //Distances
-   static constexpr int CENTER = 4;
-   static constexpr int SQUARES = 8;
+   static constexpr int CENTER = 4; //Offset, could just multiply by 4 instead of 8 and subtracting.
+   static constexpr int SQUARES = 8; //The distance between each piece.
 
    //Multiplier to Get Target Square
    static constexpr int BISHOP_DIST =2; 
@@ -65,27 +65,33 @@ class ChessPieces
 public:
 	  ChessPieces(ChessBoard& chess_board, int quantity, char p_symbol, int type, int colour);
 	  ChessPieces(char p_symbol, int type, int colour) : piece_symbol(p_symbol), piece_type(type), piece_colour(colour){} //For duplicates
+	  ChessPieces(){}
 
 	  std::vector<ChessPieces>& GeneratePieces(int quantity, char symbol, int type, int colour);
-	  std::vector<ChessPieces>& GetPieces() { return piece_duplicates; }
-	  void SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& chess_board);
-	  
-	  void MovePiece(ChessBoard& chess_board, int dist_x, int dist_y);
-	  bool MoveLegal(int p_x, int p_y);
-	  bool SquareIsEmpty(ChessPieces& piece, ChessBoard& chess_board, int p_x, int p_y);
+	  virtual std::vector<ChessPieces>& GetPieces() { return piece_duplicates; }
+	  virtual void SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& chess_board){}
 
+	  void UpdatePiece(ChessPieces& piece, ChessBoard& chess_board, int num_trav);
+
+	  void PrintXY(std::vector<ChessPieces>& pieces) { for (auto& i : pieces) { std::cout << "X: " << i.GetX() << " Y: " << i.GetY() << std::endl; } }
+	  //Set
+	  void AddY(int y) { piece_y += y; }
+	  void AddX(int x) { piece_x += x; }
+	  void SetX(int x) { piece_x = x; }
+	  void SetY(int y) { piece_y = y; }
+	  //Get
+	  int GetColour() { return piece_colour; }
 	  int GetX() { return piece_x; }
 	  int GetY() { return piece_y; }
+	  char GetSymbol() { return piece_symbol; }
   private:
 	  int piece_x{};
 	  int piece_y{};
 
 	  int piece_type{};
 	  int piece_colour{};
-
-	  bool first_move = true;
 	  
-	  char piece_symbol; //Symbol for piece
+	  char piece_symbol{};
 	  std::vector<ChessPieces>piece_duplicates;
 };
 

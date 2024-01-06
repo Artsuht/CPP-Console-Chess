@@ -13,9 +13,10 @@ public:
 	void UpdateBoard(int p_x, int p_y, char c_piece);
 	void InitBoard();
 
-	std::vector<bool>& SquareIsEmpty(int sq_num) { return occupied_square; }
-	bool GetSquare(int sq_num) { return occupied_square[sq_num]; }
+	void SquareIsOccupied(int row);
+	bool CheckSquare(int square);
 	//Get
+	int Size() { return length * width; }
 	char BoardArea(int x, int y) { return chess_board[y][x]; }
 	char Border() { return '#'; }
 	char  Empty() { return '.'; }
