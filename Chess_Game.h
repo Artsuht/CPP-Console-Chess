@@ -12,7 +12,7 @@ class ChessGame
   void RunGame();
   void DisplayGuide();
   void DisplayMenu();
-  void NotationParser(char input);//Maybe
+  void NotationParser(std::string notation);//Maybe
  private:
 
   

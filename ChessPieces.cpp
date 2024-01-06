@@ -2,12 +2,11 @@
 
 using namespace Piece_Info;
 
-ChessPieces::ChessPieces(ChessBoard& chess_board, int quantity, char p_symbol, int type, int colour) 
-:   piece_symbol(p_symbol),
-	piece_type(type), 
+ChessPieces::ChessPieces(ChessBoard& chess_board, int quantity, char p_symbol, int type, int colour)
+	: piece_symbol(p_symbol),
+	piece_type(type),
 	piece_colour(colour)
 {
-	SpawnPieces(GeneratePieces(quantity, p_symbol, type, colour), chess_board);
 }
 
 std::vector<ChessPieces>& ChessPieces::GeneratePieces(int quantity, char symbol, int type, int colour) 
@@ -21,18 +20,15 @@ std::vector<ChessPieces>& ChessPieces::GeneratePieces(int quantity, char symbol,
 	return piece_duplicates;
 }
 
-void ChessPieces::UpdatePiece(ChessPieces& piece, ChessBoard& chess_board, int num_trav)
+bool ChessPieces::IsFriendly(ChessPieces& piece, ChessBoard& chess_board)
 {
-	switch (piece.piece_type)
-	{
-	case BISHOP:
-		chess_board.UpdateBoard(piece.GetX() - (num_trav * SQUARES), piece.GetY() - (num_trav * SQUARES), chess_board.Empty());
-		chess_board.UpdateBoard(piece.GetX(), piece.GetY(), piece.GetSymbol());
-		break;
-	case PAWN:
-		chess_board.UpdateBoard(piece.GetX(), piece.GetY() - 8, chess_board.Empty());
-		chess_board.UpdateBoard(piece.GetX(), piece.GetY(), piece.GetSymbol());
-		break;
-	}
+	return false;
 }
 
+bool ChessPieces::InBounds(ChessBoard& chess_board, int f_x, int f_y)
+{
+	if (f_x < chess_board.Size() && f_x > 0 && f_y < chess_board.Size() && f_y > 0)
+		return true;
+	
+	return false;
+}

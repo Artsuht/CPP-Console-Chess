@@ -2,11 +2,19 @@
 #define CHESSENGINE_H
 
 #include "ChessPieces.h"
+#include "Rook.h"
+#include "Pawn.h"
+#include "Knight.h"
+#include "Bishop.h"
+#include "King.h"
+#include "Queen.h"
+#include "Windows.h"
 
 class ChessEngine
 {
 public:
 
+	void MakeMove();
 	void SeekMoves();
 private:
 	std::vector<bool>MoveIsOptimal;

@@ -11,35 +11,77 @@ void Bishop::SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& chess_boa
 
 	for (auto& bishop : pieces)
 	{
-		if (bishop.GetColour() == Piece_Info::BLACK)
+		if (bishop.piece_colour == Piece_Info::BLACK)
 		{
-			chess_board.UpdateBoard(Piece_Info::SQUARES * b_dist + Piece_Info::CENTER, Piece_Info::B_FIRST_ROW, bishop.GetSymbol());
-			bishop.SetX(Piece_Info::SQUARES * b_dist + Piece_Info::CENTER);
-			bishop.SetY(Piece_Info::B_FIRST_ROW);
+			chess_board.UpdateBoard(Piece_Info::SQUARES * b_dist + Piece_Info::CENTER, Piece_Info::B_FIRST_ROW, bishop.piece_symbol);
+			bishop.piece_x = Piece_Info::SQUARES * b_dist + Piece_Info::CENTER;
+			bishop.piece_y = Piece_Info::B_FIRST_ROW;
             
 			b_dist = Piece_Info::BISHOP2_DIST;
 		}
 		else
 		{
-			chess_board.UpdateBoard(Piece_Info::SQUARES * b_dist + Piece_Info::CENTER, Piece_Info::W_FIRST_ROW, bishop.GetSymbol());
-			bishop.SetX(Piece_Info::SQUARES * b_dist + Piece_Info::CENTER);
-			bishop.SetY(Piece_Info::W_FIRST_ROW);
+			chess_board.UpdateBoard(Piece_Info::SQUARES * b_dist + Piece_Info::CENTER, Piece_Info::W_FIRST_ROW, bishop.piece_symbol);
+			bishop.piece_x = Piece_Info::SQUARES * b_dist + Piece_Info::CENTER;
+			bishop.piece_y = Piece_Info::W_FIRST_ROW;
 
 			b_dist = Piece_Info::BISHOP2_DIST;
 		}
 	}
 }
 
-void Bishop::MovePiece(std::vector<ChessPieces> &piece, ChessBoard& chess_board, int index, int x, int y)
+void Bishop::MovePiece(std::vector<ChessPieces> &piece, ChessBoard& chess_board, int index, int x, int y, int left_right, int up_down)
 {
-			piece[index].AddX(x * Piece_Info::SQUARES);
-			piece[index].AddY(y * Piece_Info::SQUARES);
-			UpdatePiece(piece[index], chess_board, x);
 
-			if (piece[index].GetX() > chess_board.Size() || piece[index].GetY() > chess_board.Size())
+
+	if (!piece[index].captured && piece[index].InBounds(chess_board ,piece[index].piece_x, piece[index].piece_y))
+	{
+
+		if (left_right == Piece_Info::RIGHT_OR_DOWN && up_down == Piece_Info::RIGHT_OR_DOWN)
+		{
+			if (piece[index].InBounds(chess_board, piece[index].piece_x + (x * Piece_Info::SQUARES), piece[index].piece_y + (x * Piece_Info::SQUARES)))
 			{
-				piece[index].AddX(-x * Piece_Info::SQUARES);
-				piece[index].AddY(-y * Piece_Info::SQUARES);
-				UpdatePiece(piece[index], chess_board, x);
+             chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
+
+			 piece[index].piece_x += x * Piece_Info::SQUARES;
+			 piece[index].piece_y += y * Piece_Info::SQUARES;
 			}
+			
+		}
+
+		else if (left_right == Piece_Info::LEFT_OR_UP && up_down == Piece_Info::RIGHT_OR_DOWN)
+		{
+			if (piece[index].InBounds(chess_board, piece[index].piece_x - (x * Piece_Info::SQUARES), piece[index].piece_y + (x * Piece_Info::SQUARES)))
+			{
+				chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
+
+				piece[index].piece_x -= x * Piece_Info::SQUARES;
+				piece[index].piece_y += y * Piece_Info::SQUARES;
+			}
+		}
+
+		else if (left_right == Piece_Info::RIGHT_OR_DOWN && up_down == Piece_Info::LEFT_OR_UP)
+		{
+			if (piece[index].InBounds(chess_board, piece[index].piece_x + (x * Piece_Info::SQUARES), piece[index].piece_y - (x * Piece_Info::SQUARES)))
+			{
+				chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
+
+				piece[index].piece_x += x * Piece_Info::SQUARES;
+				piece[index].piece_y -= x * Piece_Info::SQUARES;
+			}
+		}
+
+		else if (left_right == Piece_Info::LEFT_OR_UP && up_down == Piece_Info::LEFT_OR_UP)
+		{
+			if (piece[index].InBounds(chess_board, piece[index].piece_x - (x * Piece_Info::SQUARES), piece[index].piece_y - (x * Piece_Info::SQUARES)))
+			{
+				chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
+
+				piece[index].piece_x -= x * Piece_Info::SQUARES;
+				piece[index].piece_y -= y * Piece_Info::SQUARES;
+			}
+		}
+
+		chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, piece[index].piece_symbol);
+	}
 }

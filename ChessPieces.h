@@ -31,9 +31,10 @@ namespace Piece_Info
 	KING_QUANTITY = 1
  };
    //Movement
-    static constexpr int MOVE_MIN = 1; //King, Pawns
-	static constexpr int MOVE_MAX = 8; //Rooks, Bishops, Queen
-	static constexpr int HORIZ_MAX = 2;
+    static constexpr int LEFT_OR_UP = 1;
+	static constexpr int RIGHT_OR_DOWN = 2; 
+	static constexpr int FAR_LEFT = 3;
+	static constexpr int FAR_RIGHT = 4;
 
 
    //Black
@@ -45,11 +46,11 @@ namespace Piece_Info
    static constexpr int W_SECOND_ROW = 52;
 
    //Distances
-   static constexpr int CENTER = 4; //Offset, could just multiply by 4 instead of 8 and subtracting.
-   static constexpr int SQUARES = 8; //The distance between each piece.
+   static constexpr int CENTER = 4; 
+   static constexpr int SQUARES = 8; 
 
    //Multiplier to Get Target Square
-   static constexpr int BISHOP_DIST =2; 
+   static constexpr int BISHOP_DIST = 2; 
    static constexpr int BISHOP2_DIST = 5;
 
    static constexpr int QUEEN_DIST = 3;
@@ -69,22 +70,9 @@ public:
 
 	  std::vector<ChessPieces>& GeneratePieces(int quantity, char symbol, int type, int colour);
 	  virtual std::vector<ChessPieces>& GetPieces() { return piece_duplicates; }
-	  virtual void SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& chess_board){}
-
-	  void UpdatePiece(ChessPieces& piece, ChessBoard& chess_board, int num_trav);
-
-	  void PrintXY(std::vector<ChessPieces>& pieces) { for (auto& i : pieces) { std::cout << "X: " << i.GetX() << " Y: " << i.GetY() << std::endl; } }
-	  //Set
-	  void AddY(int y) { piece_y += y; }
-	  void AddX(int x) { piece_x += x; }
-	  void SetX(int x) { piece_x = x; }
-	  void SetY(int y) { piece_y = y; }
-	  //Get
-	  int GetColour() { return piece_colour; }
-	  int GetX() { return piece_x; }
-	  int GetY() { return piece_y; }
-	  char GetSymbol() { return piece_symbol; }
-  private:
+	  bool IsFriendly(ChessPieces& piece, ChessBoard& chess_board);
+	  bool InBounds(ChessBoard& chess_board, int f_x, int f_y);
+	
 	  int piece_x{};
 	  int piece_y{};
 
@@ -92,6 +80,11 @@ public:
 	  int piece_colour{};
 	  
 	  char piece_symbol{};
+	  bool double_move = true;
+	  bool captured = false;
+
+private:
+
 	  std::vector<ChessPieces>piece_duplicates;
 };
 

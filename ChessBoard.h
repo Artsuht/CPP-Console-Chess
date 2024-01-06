@@ -13,8 +13,6 @@ public:
 	void UpdateBoard(int p_x, int p_y, char c_piece);
 	void InitBoard();
 
-	void SquareIsOccupied(int row);
-	bool CheckSquare(int square);
 	//Get
 	int Size() { return length * width; }
 	char BoardArea(int x, int y) { return chess_board[y][x]; }
