@@ -30,6 +30,7 @@ namespace Piece_Info
 	QUEEN_QUANTITY = 1,
 	KING_QUANTITY = 1
  };
+
    //Movement
     static constexpr int LEFT_OR_UP = 1;
 	static constexpr int RIGHT_OR_DOWN = 2; 
@@ -71,6 +72,8 @@ public:
 	  std::vector<ChessPieces>& GeneratePieces(int quantity, char symbol, int type, int colour);
 	  virtual std::vector<ChessPieces>& GetPieces() { return piece_duplicates; }
 	  bool InBounds(ChessBoard& chess_board, int f_x, int f_y);
+	  bool IsFriendly(ChessBoard& chess_board, int f_x, int f_y);
+	  bool PieceInPath(ChessBoard& chess_board, ChessPieces& piece, int f_x, int f_y);
 	
 	  int piece_x{};
 	  int piece_y{};
@@ -84,7 +87,6 @@ public:
 	  bool captured = false;
 
 private:
-
 	  std::vector<ChessPieces>piece_duplicates;
 };
 

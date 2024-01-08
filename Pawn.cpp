@@ -30,23 +30,25 @@ void Pawn::SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& chess_board
 
 void Pawn::MovePiece(std::vector<ChessPieces>& piece, ChessBoard& chess_board, int index, int y)
 {
-	if (!piece[index].captured && piece[index].InBounds(chess_board, piece[index].piece_x, piece[index].piece_y))
+	if (!piece[index].captured && InBounds(chess_board, piece[index].piece_x, piece[index].piece_y))
 	{
 			//Check if player is trying to move pawn two or more squares ahead.0
-			if (((y * Piece_Info::SQUARES)) / Piece_Info::SQUARES >= 2 && piece[index].double_move)
+			if (((y * Piece_Info::SQUARES)) / Piece_Info::SQUARES >= 2 && piece[index].double_move 
+				&& !IsFriendly(chess_board, piece[index].piece_x, piece[index].piece_y + Piece_Info::SQUARES * 2))
 			{
 				chess_board.friendly_squares[piece[index].on_square] = false;
  				chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
 
 				piece[index].piece_y += Piece_Info::SQUARES * 2;
+
+				if(piece[index].double_move)
 				piece[index].double_move = false;
 
-				piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
-				chess_board.friendly_squares[piece[index].on_square] = true;
 			}
 			else //Just default to a single square
 			{
-				if (piece[index].InBounds(chess_board, piece[index].piece_x, piece[index].piece_y + Piece_Info::SQUARES))
+				if (InBounds(chess_board, piece[index].piece_x, piece[index].piece_y + Piece_Info::SQUARES)
+					&&!IsFriendly(chess_board, piece[index].piece_x, piece[index].piece_y + Piece_Info::SQUARES))
 				{
 					chess_board.friendly_squares[piece[index].on_square] = false;
 					chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
@@ -54,10 +56,13 @@ void Pawn::MovePiece(std::vector<ChessPieces>& piece, ChessBoard& chess_board, i
 					piece[index].piece_y += Piece_Info::SQUARES;
 					piece[index].double_move = false;
 
-					piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
-					chess_board.friendly_squares[piece[index].on_square] = true;
+					if (piece[index].double_move)
+						piece[index].double_move = false;
 				}
 			}
+
+			piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
+			chess_board.friendly_squares[piece[index].on_square] = true;
 
 			chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, piece[index].piece_symbol);
 	}

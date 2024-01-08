@@ -27,3 +27,21 @@ bool ChessPieces::InBounds(ChessBoard& chess_board, int f_x, int f_y)
 	
 	return false;
 }
+
+bool ChessPieces::IsFriendly(ChessBoard& chess_board, int f_x, int f_y)
+{
+  int sq = f_x / Piece_Info::SQUARES + f_y - Piece_Info::CENTER + 1;
+  if (chess_board.friendly_squares[sq])
+	  return true;
+  
+  return false; 
+}
+
+bool ChessPieces::PieceInPath(ChessBoard& chess_board, ChessPieces& piece, int f_x, int f_y)
+{
+	for (int dist_moved = f_x + f_y; dist_moved > piece.on_square; dist_moved--)
+	{
+		if (chess_board.friendly_squares[dist_moved])
+			return true;
+	}
+}

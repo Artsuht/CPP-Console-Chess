@@ -38,61 +38,56 @@ void Rook::MovePiece(std::vector<ChessPieces>& piece, ChessBoard& chess_board, i
 	{
 			if (left_right == Piece_Info::RIGHT_OR_DOWN)
 			{
-				if (piece[index].InBounds(chess_board, piece[index].piece_x + (xy * Piece_Info::SQUARES), piece[index].piece_y))
+				if (InBounds(chess_board, piece[index].piece_x + (xy * Piece_Info::SQUARES), piece[index].piece_y) 
+					&& !IsFriendly(chess_board, piece[index].piece_x + (xy * Piece_Info::SQUARES), piece[index].piece_y))
 				{ 
 				  chess_board.friendly_squares[piece[index].on_square] = false;
 
 				  chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
                   piece[index].piece_x += xy * Piece_Info::SQUARES;
-
-				  piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER;
-				  chess_board.friendly_squares[piece[index].on_square] = true;
 				}
 			}
 
 			else if (left_right == Piece_Info::LEFT_OR_UP)
 			{
-			  if (piece[index].InBounds(chess_board, piece[index].piece_x - (xy * Piece_Info::SQUARES), piece[index].piece_y))
+			  if (InBounds(chess_board, piece[index].piece_x - (xy * Piece_Info::SQUARES), piece[index].piece_y) 
+				  && !IsFriendly(chess_board, piece[index].piece_x - (xy * Piece_Info::SQUARES), piece[index].piece_y))
 			  { 
 			    chess_board.friendly_squares[piece[index].on_square] = false;
 
 				chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
-                piece[index].piece_x -= xy * Piece_Info::SQUARES;
-
-				piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER;
-				chess_board.friendly_squares[piece[index].on_square] = true;
+				piece[index].piece_x -= xy * Piece_Info::SQUARES;
 			  }
 			}
 
 			else if (up_down == Piece_Info::RIGHT_OR_DOWN)
 			{
-			  if (piece[index].InBounds(chess_board, piece[index].piece_x, piece[index].piece_y + (xy * Piece_Info::SQUARES)))
+			  if (InBounds(chess_board, piece[index].piece_x, piece[index].piece_y + (xy * Piece_Info::SQUARES)) 
+				  && !IsFriendly(chess_board, piece[index].piece_x, piece[index].piece_y + (xy * Piece_Info::SQUARES)))
 			  {
-				  chess_board.friendly_squares[piece[index].on_square] = false;
+				 chess_board.friendly_squares[piece[index].on_square] = false;
 
 				 chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
                  piece[index].piece_y += xy * Piece_Info::SQUARES;
-
-				 piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER;
-				 chess_board.friendly_squares[piece[index].on_square] = true;
 			  }
             
 			}
 				
 			else if (up_down == Piece_Info::LEFT_OR_UP)
 			{
-				if (piece[index].InBounds(chess_board, piece[index].piece_x, piece[index].piece_y - (xy * Piece_Info::SQUARES)))
+				if (InBounds(chess_board, piece[index].piece_x, piece[index].piece_y - (xy * Piece_Info::SQUARES))
+					&& !IsFriendly(chess_board, piece[index].piece_x, piece[index].piece_y - (xy * Piece_Info::SQUARES)))
 				{
 				 chess_board.friendly_squares[piece[index].on_square] = false;
 
 				 chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
                  piece[index].piece_y -= xy * Piece_Info::SQUARES;
-
-				 piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER;
-				 chess_board.friendly_squares[piece[index].on_square] = true;
 				}
               
 			}	
+
+			piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
+			chess_board.friendly_squares[piece[index].on_square] = true;
 
 			chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, piece[index].piece_symbol);
 	}

@@ -97,7 +97,7 @@ void ChessGame::RunGame()
             std::cout << "Up or Down?:";
             std::cin >> up_down;
 
-            b_bishop.MovePiece(b_bishop.GetPieces(), board, piece_num, move_dist, move_dist, left_right, up_down);
+            b_bishop.MovePiece(b_bishop.GetPieces(), board, piece_num, move_dist, left_right, up_down);
             break;
 
         case KING:

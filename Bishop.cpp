@@ -33,73 +33,66 @@ void Bishop::SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& chess_boa
 	}
 }
 
-void Bishop::MovePiece(std::vector<ChessPieces> &piece, ChessBoard& chess_board, int index, int x, int y, int left_right, int up_down)
+void Bishop::MovePiece(std::vector<ChessPieces> &piece, ChessBoard& chess_board, int index, int xy, int left_right, int up_down)
 {
-
-
-	if (!piece[index].captured && piece[index].InBounds(chess_board ,piece[index].piece_x, piece[index].piece_y))
+	if (!piece[index].captured && InBounds(chess_board ,piece[index].piece_x, piece[index].piece_y))
 	{
 
 		if (left_right == Piece_Info::RIGHT_OR_DOWN && up_down == Piece_Info::RIGHT_OR_DOWN)
 		{
-			if (piece[index].InBounds(chess_board, piece[index].piece_x + (x * Piece_Info::SQUARES), piece[index].piece_y + (x * Piece_Info::SQUARES)))
+			if (InBounds(chess_board, piece[index].piece_x + (xy * Piece_Info::SQUARES), piece[index].piece_y + (xy * Piece_Info::SQUARES))
+				&& !IsFriendly(chess_board, piece[index].piece_x + (xy * Piece_Info::SQUARES), piece[index].piece_y + (xy * + Piece_Info::SQUARES)))
 			{
 			 chess_board.friendly_squares[piece[index].on_square] = false;
              chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
 
-			 piece[index].piece_x += x * Piece_Info::SQUARES;
-			 piece[index].piece_y += y * Piece_Info::SQUARES;
-
-			 piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
-			 chess_board.friendly_squares[piece[index].on_square] = true;
+			 piece[index].piece_x += xy * Piece_Info::SQUARES;
+			 piece[index].piece_y += xy * Piece_Info::SQUARES;
 			}
 			
 		}
 
 		else if (left_right == Piece_Info::LEFT_OR_UP && up_down == Piece_Info::RIGHT_OR_DOWN)
 		{
-			if (piece[index].InBounds(chess_board, piece[index].piece_x - (x * Piece_Info::SQUARES), piece[index].piece_y + (x * Piece_Info::SQUARES)))
+			if (InBounds(chess_board, piece[index].piece_x - (xy * Piece_Info::SQUARES), piece[index].piece_y + (xy * Piece_Info::SQUARES))
+				&& !IsFriendly(chess_board, piece[index].piece_x - (xy * Piece_Info::SQUARES), piece[index].piece_y + (xy * +Piece_Info::SQUARES)))
 			{
 				chess_board.friendly_squares[piece[index].on_square] = false;
 				chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
 
-				piece[index].piece_x -= x * Piece_Info::SQUARES;
-				piece[index].piece_y += y * Piece_Info::SQUARES;
-
-				piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
-				chess_board.friendly_squares[piece[index].on_square] = true;
+				piece[index].piece_x -= xy * Piece_Info::SQUARES;
+				piece[index].piece_y += xy * Piece_Info::SQUARES;
 			}
 		}
 
 		else if (left_right == Piece_Info::RIGHT_OR_DOWN && up_down == Piece_Info::LEFT_OR_UP)
 		{
-			if (piece[index].InBounds(chess_board, piece[index].piece_x + (x * Piece_Info::SQUARES), piece[index].piece_y - (x * Piece_Info::SQUARES)))
+			if (InBounds(chess_board, piece[index].piece_x + (xy * Piece_Info::SQUARES), piece[index].piece_y - (xy * Piece_Info::SQUARES))
+				&& !IsFriendly(chess_board, piece[index].piece_x + (xy * Piece_Info::SQUARES), piece[index].piece_y - (xy * +Piece_Info::SQUARES)))
 			{
 				chess_board.friendly_squares[piece[index].on_square] = false;
 				chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
 
-				piece[index].piece_x += x * Piece_Info::SQUARES;
-				piece[index].piece_y -= x * Piece_Info::SQUARES;
-
-				piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
-				chess_board.friendly_squares[piece[index].on_square] = true;
+				piece[index].piece_x += xy * Piece_Info::SQUARES;
+				piece[index].piece_y -= xy * Piece_Info::SQUARES;
 			}
 		}
 
 		else if (left_right == Piece_Info::LEFT_OR_UP && up_down == Piece_Info::LEFT_OR_UP)
 		{
-			if (piece[index].InBounds(chess_board, piece[index].piece_x - (x * Piece_Info::SQUARES), piece[index].piece_y - (x * Piece_Info::SQUARES)))
+			if (InBounds(chess_board, piece[index].piece_x - (xy * Piece_Info::SQUARES), piece[index].piece_y - (xy * Piece_Info::SQUARES))
+				&& !IsFriendly(chess_board, piece[index].piece_x - (xy * Piece_Info::SQUARES), piece[index].piece_y - (xy * +Piece_Info::SQUARES)))
 			{
 				chess_board.friendly_squares[piece[index].on_square] = false;
 				chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
 
-				piece[index].piece_x -= x * Piece_Info::SQUARES;
-				piece[index].piece_y -= y * Piece_Info::SQUARES;
-
-				piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
-				chess_board.friendly_squares[piece[index].on_square] = true;
+				piece[index].piece_x -= xy * Piece_Info::SQUARES;
+				piece[index].piece_y -= xy * Piece_Info::SQUARES;
 			}
 		}
+
+		piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
+		chess_board.friendly_squares[piece[index].on_square] = true;
 
 		chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, piece[index].piece_symbol);
 	}
