@@ -46,7 +46,7 @@ void ChessGame::RunGame()
             std::cout << "Choose which piece out of them you wish to move - [0] = 1: \n";
             std::cin >> piece_num;
 
-            std::cout << "How Many Squares: " << std::endl; 
+            std::cout << "How Many Squares: " << std::endl;
             std::cin >> move_dist;
 
             b_pawns.MovePiece(b_pawns.GetPieces(), board, piece_num, move_dist);
@@ -60,10 +60,10 @@ void ChessGame::RunGame()
             std::cout << "How Many Squares:";
             std::cin >> move_dist;
 
-            std::cout << "Left or Right?: "; 
+            std::cout << "Left or Right?: ";
             std::cin >> left_right;
 
-            std::cout << "Up or Down?:"; 
+            std::cout << "Up or Down?:";
             std::cin >> up_down;
 
             b_rooks.MovePiece(b_rooks.GetPieces(), board, piece_num, move_dist, left_right, up_down);
@@ -74,10 +74,10 @@ void ChessGame::RunGame()
             std::cout << "Choose which piece out of them you wish to move - [0] = 1: \n";
             std::cin >> piece_num;
 
-            std::cout << "Left or Right?: "; 
+            std::cout << "Left or Right?: ";
             std::cin >> left_right;
 
-            std::cout << "Up or Down?:"; 
+            std::cout << "Up or Down?:";
             std::cin >> up_down;
 
             b_knights.MovePiece(b_knights.GetPieces(), board, piece_num, left_right, up_down);
@@ -91,10 +91,10 @@ void ChessGame::RunGame()
             std::cout << "How Many Squares: ";
             std::cin >> move_dist;
 
-            std::cout << "Left or Right?: ";  
+            std::cout << "Left or Right?: ";
             std::cin >> left_right;
 
-            std::cout << "Up or Down?:"; 
+            std::cout << "Up or Down?:";
             std::cin >> up_down;
 
             b_bishop.MovePiece(b_bishop.GetPieces(), board, piece_num, move_dist, move_dist, left_right, up_down);
@@ -108,24 +108,24 @@ void ChessGame::RunGame()
             std::cout << "Left or Right?: ";
             std::cin >> left_right;
 
-            std::cout << "Up or Down?:"; 
+            std::cout << "Up or Down?:";
             std::cin >> up_down;
 
-            std::cout << "Diagonal?:"; 
+            std::cout << "Diagonal?:";
             std::cin >> diagonal;
 
             b_king.MovePiece(b_king.GetPieces(), board, 0, diagonal, left_right, up_down);
             break;
 
         case QUEEN:
-        
-            std::cout << "How Many Squares: " << std::endl;	
+
+            std::cout << "How Many Squares: " << std::endl;
             std::cin >> move_dist;
 
             std::cout << "Left or Right?: ";
             std::cin >> left_right;
 
-            std::cout << "Up or Down?:"; 
+            std::cout << "Up or Down?:";
             std::cin >> up_down;
 
             std::cout << "Diagonal?:";
@@ -174,29 +174,4 @@ void ChessGame::DisplayMenu()
 
 void ChessGame::NotationParser(std::string notation)
 {
-    char new_rank{};
-    char prev_rank{};
-
-    char new_file{};
-    char prev_file{};
-
-    char piece{};
-
-    for (int i = 0; i < notation.length(); i++)
-    {
-        if (std::isupper(notation[i]))
-            piece = notation[i];
-        if (std::isdigit(notation[i]))
-            prev_file = notation[i];
-        else
-           prev_rank = notation[i];
-
-        if (prev_file && prev_rank != 0 && i > 2)
-        {
-         if (std::isdigit(notation[i]))
-            new_file = notation[i];
-            else
-            new_rank = notation[i];
-        }
-    }
 }

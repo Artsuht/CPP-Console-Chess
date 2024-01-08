@@ -3,13 +3,13 @@
 ChessBoard::ChessBoard() 
 {
 	InitBoard();
+
+	for (int sq = 0; sq < length * width; sq++)
+		friendly_squares.push_back(false);
 }
 
 void ChessBoard::InitBoard()
-{
-	int checker = 9;
-	int temp{};
-	
+{	
 	for (int columns = 0; columns < length * width; columns++)
 	{
 		for (int rows = 0; rows < length * width; rows++)

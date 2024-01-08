@@ -18,6 +18,9 @@ void Bishop::SpawnPieces(std::vector<ChessPieces>& pieces, ChessBoard& chess_boa
 			bishop.piece_y = Piece_Info::B_FIRST_ROW;
             
 			b_dist = Piece_Info::BISHOP2_DIST;
+
+			bishop.on_square = bishop.piece_x / Piece_Info::SQUARES + Piece_Info::B_FIRST_ROW - Piece_Info::CENTER + 1;
+			chess_board.friendly_squares[bishop.on_square] = true;
 		}
 		else
 		{
@@ -41,10 +44,14 @@ void Bishop::MovePiece(std::vector<ChessPieces> &piece, ChessBoard& chess_board,
 		{
 			if (piece[index].InBounds(chess_board, piece[index].piece_x + (x * Piece_Info::SQUARES), piece[index].piece_y + (x * Piece_Info::SQUARES)))
 			{
+			 chess_board.friendly_squares[piece[index].on_square] = false;
              chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
 
 			 piece[index].piece_x += x * Piece_Info::SQUARES;
 			 piece[index].piece_y += y * Piece_Info::SQUARES;
+
+			 piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
+			 chess_board.friendly_squares[piece[index].on_square] = true;
 			}
 			
 		}
@@ -53,10 +60,14 @@ void Bishop::MovePiece(std::vector<ChessPieces> &piece, ChessBoard& chess_board,
 		{
 			if (piece[index].InBounds(chess_board, piece[index].piece_x - (x * Piece_Info::SQUARES), piece[index].piece_y + (x * Piece_Info::SQUARES)))
 			{
+				chess_board.friendly_squares[piece[index].on_square] = false;
 				chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
 
 				piece[index].piece_x -= x * Piece_Info::SQUARES;
 				piece[index].piece_y += y * Piece_Info::SQUARES;
+
+				piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
+				chess_board.friendly_squares[piece[index].on_square] = true;
 			}
 		}
 
@@ -64,10 +75,14 @@ void Bishop::MovePiece(std::vector<ChessPieces> &piece, ChessBoard& chess_board,
 		{
 			if (piece[index].InBounds(chess_board, piece[index].piece_x + (x * Piece_Info::SQUARES), piece[index].piece_y - (x * Piece_Info::SQUARES)))
 			{
+				chess_board.friendly_squares[piece[index].on_square] = false;
 				chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
 
 				piece[index].piece_x += x * Piece_Info::SQUARES;
 				piece[index].piece_y -= x * Piece_Info::SQUARES;
+
+				piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
+				chess_board.friendly_squares[piece[index].on_square] = true;
 			}
 		}
 
@@ -75,10 +90,14 @@ void Bishop::MovePiece(std::vector<ChessPieces> &piece, ChessBoard& chess_board,
 		{
 			if (piece[index].InBounds(chess_board, piece[index].piece_x - (x * Piece_Info::SQUARES), piece[index].piece_y - (x * Piece_Info::SQUARES)))
 			{
+				chess_board.friendly_squares[piece[index].on_square] = false;
 				chess_board.UpdateBoard(piece[index].piece_x, piece[index].piece_y, chess_board.Empty());
 
 				piece[index].piece_x -= x * Piece_Info::SQUARES;
 				piece[index].piece_y -= y * Piece_Info::SQUARES;
+
+				piece[index].on_square = piece[index].piece_x / Piece_Info::SQUARES + piece[index].piece_y - Piece_Info::CENTER + 1;
+				chess_board.friendly_squares[piece[index].on_square] = true;
 			}
 		}
 

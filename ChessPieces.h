@@ -61,7 +61,7 @@ namespace Piece_Info
 };
 
 
-class ChessPieces
+class ChessPieces : public ChessBoard
 {
 public:
 	  ChessPieces(ChessBoard& chess_board, int quantity, char p_symbol, int type, int colour);
@@ -70,11 +70,11 @@ public:
 
 	  std::vector<ChessPieces>& GeneratePieces(int quantity, char symbol, int type, int colour);
 	  virtual std::vector<ChessPieces>& GetPieces() { return piece_duplicates; }
-	  bool IsFriendly(ChessPieces& piece, ChessBoard& chess_board);
 	  bool InBounds(ChessBoard& chess_board, int f_x, int f_y);
 	
 	  int piece_x{};
 	  int piece_y{};
+	  int on_square{};
 
 	  int piece_type{};
 	  int piece_colour{};

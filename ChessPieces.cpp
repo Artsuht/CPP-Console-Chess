@@ -20,11 +20,6 @@ std::vector<ChessPieces>& ChessPieces::GeneratePieces(int quantity, char symbol,
 	return piece_duplicates;
 }
 
-bool ChessPieces::IsFriendly(ChessPieces& piece, ChessBoard& chess_board)
-{
-	return false;
-}
-
 bool ChessPieces::InBounds(ChessBoard& chess_board, int f_x, int f_y)
 {
 	if (f_x < chess_board.Size() && f_x > 0 && f_y < chess_board.Size() && f_y > 0)
